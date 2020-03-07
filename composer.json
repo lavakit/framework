@@ -1,0 +1,47 @@
+{
+    "name": "lavakit/framework",
+    "description": "The Lavakit framework",
+    "keywords": ["lavakit", "framework", "lavakit framework"],
+    "license": "MIT",
+    "homepage": "http://lavakit.info",
+    "support": {
+        "issues": "https://github.com/lavakit/lavakit/issues",
+        "document": "http://lavakit.readthedocs.io"
+    },
+    "authors": [
+        {
+            "name": "Trinh Quoc Hoa",
+            "email": "tqhoa8th@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "laravel/framework": "^7.0",
+        "laravel/tinker": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "mockery/mockery": "^1.3.1",
+        "barryvdh/laravel-debugbar": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lavakit\\": "src/Lavakit/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lavakit\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
