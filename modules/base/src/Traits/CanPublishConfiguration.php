@@ -57,6 +57,6 @@ trait CanPublishConfiguration
      */
     private function getModulePath(string $module)
     {
-        return __DIR__ . "../../../$module";
+        return __DIR__ . "/../../../$module";
     }
 }
