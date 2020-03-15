@@ -1,0 +1,10 @@
+{
+    "alias": "base",
+    "name": "Lavakit base",
+    "author": "tqhoa",
+    "description": "Base",
+    "namespace": "Lavakit\\Base",
+    "version": "1.0",
+    "autoload": "psr-4",
+    "enabled": true
+}

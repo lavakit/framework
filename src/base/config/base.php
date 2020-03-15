@@ -25,14 +25,7 @@ return [
     'core-modules' => [
         'base',
         'dashboard',
-        'menu',
-        'notification',
-        'page',
-        'post',
-        'setting',
         'theme',
-        'translation',
-        'user'
     ],
 
     /*
