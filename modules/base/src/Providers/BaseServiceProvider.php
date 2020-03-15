@@ -47,7 +47,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     protected function loadHelpers()
     {
-        $helpers = $this->app['files']->glob(__DIR__ . '/../helpers/*.php');
+        $helpers = $this->app['files']->glob(__DIR__ . '/../../helpers/*.php');
 
         if ($helpers) {
             foreach ($helpers as $helper) {
