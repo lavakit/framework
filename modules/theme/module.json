@@ -1,0 +1,10 @@
+{
+    "alias": "theme",
+    "name": "Lavakit theme",
+    "author": "tqhoa",
+    "description": "Theme",
+    "namespace": "Lavakit\\Theme",
+    "version": "1.0",
+    "autoload": "psr-4",
+    "enabled": true
+}

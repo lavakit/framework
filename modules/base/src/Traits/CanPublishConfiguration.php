@@ -34,6 +34,26 @@ trait CanPublishConfiguration
     }
 
     /**
+     * Load helpers
+     *
+     * @param string $dir
+     *
+     * @copyright 2020 Lavakit Group
+     * @author tqhoa <tqhoa8th@gmail.com>
+     */
+    public function loadHelpers(string $module)
+    {
+        $path = base_path("vendor/lavakit/framework/modules/{$module}/helpers/*.php");
+        $helpers = $this->app['files']->glob($path);
+
+        if ($helpers) {
+            foreach ($helpers as $helper) {
+                require_once $helper;
+            }
+        }
+    }
+
+    /**
      * Get path of the give file name in the given module
      *
      * @param string $module

@@ -4,6 +4,7 @@ namespace Lavakit\Base\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Lavakit\Base\Traits\CanPublishConfiguration;
+use Lavakit\Theme\Providers\ThemeServiceProvider;
 
 /**
  * Class BaseServiceProvider
@@ -15,6 +16,8 @@ use Lavakit\Base\Traits\CanPublishConfiguration;
 class BaseServiceProvider extends ServiceProvider
 {
     use CanPublishConfiguration;
+
+    protected static $module = 'base';
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -29,31 +32,32 @@ class BaseServiceProvider extends ServiceProvider
         ]
     ];
 
-    public function boot()
-    {
-        $this->publishConfig('base', 'base');
-    }
-
-    public function register()
-    {
-        $this->loadHelpers();
-    }
-
     /**
-     * Load helpers
      *
      * @copyright 2020 Lavakit Group
      * @author tqhoa <tqhoa8th@gmail.com>
      */
-    protected function loadHelpers()
+    public function boot()
     {
-        $helpers = $this->app['files']->glob(__DIR__ . '/../../helpers/*.php');
+        $this->loadHelpers(self::$module);
+        $this->loadProviders();
+    }
 
-        if ($helpers) {
-            foreach ($helpers as $helper) {
-                require_once $helper;
-            }
-        }
+    public function register()
+    {
+        //Load configurations
+        $this->publishConfig('base', 'base');
+    }
+
+    /**
+     * Register providers
+     *
+     * @copyright 2020 Lavakit Group
+     * @author tqhoa <tqhoa8th@gmail.com>
+     */
+    protected function loadProviders()
+    {
+        $this->app->register(ThemeServiceProvider::class);
     }
 
     /**
