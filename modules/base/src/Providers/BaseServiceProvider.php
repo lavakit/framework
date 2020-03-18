@@ -3,7 +3,11 @@
 namespace Lavakit\Base\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Lavakit\Base\Facades\TitleFacade;
 use Lavakit\Base\Traits\CanPublishConfiguration;
+use Lavakit\Base\Traits\CanRegisterFacadeAliases;
+use Lavakit\Dashboard\Providers\DashboardServiceProvider;
+use Lavakit\Page\Providers\PageServiceProvider;
 use Lavakit\Theme\Providers\ThemeServiceProvider;
 
 /**
@@ -15,7 +19,8 @@ use Lavakit\Theme\Providers\ThemeServiceProvider;
  */
 class BaseServiceProvider extends ServiceProvider
 {
-    use CanPublishConfiguration;
+    use CanPublishConfiguration,
+        CanRegisterFacadeAliases;
 
     protected static $module = 'base';
 
@@ -26,9 +31,21 @@ class BaseServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
-    protected $middleware = [
-        'base' => [
+    /**
+     * @var array Facade Aliases
+     */
+    protected $facadeAliases = [
+        'Title' => TitleFacade::class,
+    ];
 
+    /**
+     * The filters base class name
+     * @var array
+     */
+    protected $middleware = [
+        'Base' => [
+            'localizationRedirect' => 'LocalizationMiddleware',
+            'SessionTimeout' => 'SessionTimeoutMiddleware',
         ]
     ];
 
@@ -39,14 +56,21 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //Load configurations
+        $this->publishConfig('base', 'base');
+
         $this->loadHelpers(self::$module);
+
+        /*Register middleware*/
+        $this->registerMiddleware();
+
         $this->loadProviders();
     }
 
     public function register()
     {
-        //Load configurations
-        $this->publishConfig('base', 'base');
+        //Register aliases
+        $this->registerFacadeAlias($this->facadeAliases);
     }
 
     /**
@@ -58,6 +82,23 @@ class BaseServiceProvider extends ServiceProvider
     protected function loadProviders()
     {
         $this->app->register(ThemeServiceProvider::class);
+        $this->app->register(DashboardServiceProvider::class);
+        $this->app->register(PageServiceProvider::class);
+    }
+
+    /**
+     * Register the filters
+     *
+     * @author hoatq <tqhoa8th@gmail.com>
+     */
+    public function registerMiddleware()
+    {
+        foreach ($this->middleware as $module => $middlewares) {
+            foreach ($middlewares as $name => $middleware) {
+                $class = "Lavakit\\{$module}\\Http\\Middleware\\{$middleware}";
+                $this->app['router']->aliasMiddleware($name, $class);
+            }
+        }
     }
 
     /**
