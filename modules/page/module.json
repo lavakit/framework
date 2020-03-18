@@ -1,0 +1,10 @@
+{
+    "alias": "page",
+    "name": "Lavakit page",
+    "author": "tqhoa",
+    "description": "Page",
+    "namespace": "Lavakit\\Page",
+    "version": "1.0",
+    "autoload": "psr-4",
+    "enabled": true
+}

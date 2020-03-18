@@ -1,0 +1,10 @@
+{
+    "alias": "dashboard",
+    "name": "Lavakit dashboard",
+    "author": "tqhoa",
+    "description": "Dashboard",
+    "namespace": "Lavakit\\dashboard",
+    "version": "1.0",
+    "autoload": "psr-4",
+    "enabled": true
+}
