@@ -1,0 +1,10 @@
+{
+    "alias": "user",
+    "name": "Lavakit user",
+    "author": "tqhoa",
+    "description": "User",
+    "namespace": "Lavakit\\User",
+    "version": "1.0",
+    "autoload": "psr-4",
+    "enabled": true
+}

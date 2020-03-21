@@ -9,6 +9,7 @@ use Lavakit\Base\Traits\CanRegisterFacadeAliases;
 use Lavakit\Dashboard\Providers\DashboardServiceProvider;
 use Lavakit\Page\Providers\PageServiceProvider;
 use Lavakit\Theme\Providers\ThemeServiceProvider;
+use Lavakit\User\Providers\UserServiceProvider;
 
 /**
  * Class BaseServiceProvider
@@ -84,6 +85,7 @@ class BaseServiceProvider extends ServiceProvider
         $this->app->register(ThemeServiceProvider::class);
         $this->app->register(DashboardServiceProvider::class);
         $this->app->register(PageServiceProvider::class);
+        $this->app->register(UserServiceProvider::class);
     }
 
     /**

@@ -36,7 +36,8 @@
             "Lavakit\\Base\\": "modules/base/src",
             "Lavakit\\Theme\\": "modules/theme/src",
             "Lavakit\\Dashboard\\": "modules/dashboard/src",
-            "Lavakit\\Page\\": "modules/page/src"
+            "Lavakit\\Page\\": "modules/page/src",
+            "Lavakit\\User\\": "modules/user/src"
         }
     },
     "autoload-dev": {
