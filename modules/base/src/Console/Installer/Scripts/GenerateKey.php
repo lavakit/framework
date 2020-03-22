@@ -7,9 +7,10 @@ use Lavakit\Base\Contracts\Console\SetupScript;
 
 /**
  * Class GenerateKey
+ *
  * @package Lavakit\Base\Console\Installer\Scripts
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class GenerateKey implements SetupScript
 {

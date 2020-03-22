@@ -3,18 +3,22 @@
 namespace Lavakit\Base\Console\Installer\Scripts;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\DatabaseManager;
 use Lavakit\Base\Console\Installer\Scripts\Writers\EnvFile;
 use Lavakit\Base\Contracts\Console\SetupScript;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use PDOException;
 
 /**
  * Class ConfigureDatabase
+ *
  * @package Lavakit\Base\Console\Installer\Scripts
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class ConfigureDatabase implements SetupScript
 {
@@ -37,20 +41,22 @@ class ConfigureDatabase implements SetupScript
         $this->config = $config;
         $this->env = $envFile;
     }
-    
+
     /**
      * Run the install script
      *
      * @param Command $command
      * @return mixed|void
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws BindingResolutionException
+     * @throws FileNotFoundException
+     * @copyright 2020 Lavakit Group
      */
     public function run(Command $command)
     {
         $this->command = $command;
         $connected = false;
         $vars = [];
-        
+
         while (!$connected) {
             $vars['db_driver'] = $this->askDatabaseDriver();
             $vars['db_host'] = $this->askDatabaseHost();
@@ -60,7 +66,7 @@ class ConfigureDatabase implements SetupScript
             $vars['db_password'] = $this->askDatabasePassword();
             $vars['db_prefix'] = $this->askDatabasePrefix();
             $vars['db_engine'] = $this->askDatabaseEngine();
-    
+
             $this->setLaravelConfiguration($vars);
     
             if ($this->databaseConnectionIsValid()) {
@@ -90,19 +96,20 @@ class ConfigureDatabase implements SetupScript
      */
     protected function askDatabaseHost()
     {
-        $host = $this->command->ask('Enter your database host', '127.0.0.1');
-        
-        return $host;
+        return $this->command->ask('Enter your database host', '127.0.0.1');
     }
-    
+
     /**
-     * @return string
+     * @param $driver
+     * @return mixed
+     * @copyright 2020 Lavakit Group
      */
     protected function askDatabasePort($driver)
     {
-        $port = $this->command->ask('Enter your database port', $this->config['database.connections.' . $driver . '.port']);
-        
-        return $port;
+        return $this->command->ask(
+            'Enter your database port',
+            $this->config['database.connections.' . $driver . '.port']
+        );
     }
     
     /**
@@ -142,7 +149,10 @@ class ConfigureDatabase implements SetupScript
      */
     protected function askDatabasePassword()
     {
-        $databasePassword = $this->command->ask('Enter your database password (leave <none> for no password)', 'secret');
+        $databasePassword = $this->command->ask(
+            'Enter your database password (leave <none> for no password)',
+            'secret'
+        );
         
         return ($databasePassword === '<none>') ? '' : $databasePassword;
     }
@@ -153,7 +163,10 @@ class ConfigureDatabase implements SetupScript
      */
     protected function askDatabasePrefix()
     {
-        $databasePrefix = $this->command->ask('Enter your database prefix (leave <none> for no prefix)', 'lk_');
+        $databasePrefix = $this->command->ask(
+            'Enter your database prefix (leave <none> for no prefix)',
+            'lk_'
+        );
     
         return ($databasePrefix === '<none>') ? '' : $databasePrefix;
     }
@@ -164,13 +177,13 @@ class ConfigureDatabase implements SetupScript
      */
     protected function askDatabaseEngine()
     {
-        $databaseEngine = $this->command->choice('Enter your database engine', ['InnoDB', 'MyISAM'], 0);
-    
-        return $databaseEngine;
+        return $this->command->choice('Enter your database engine', ['InnoDB', 'MyISAM'], 0);
     }
-    
+
     /**
-     * @param array $vars
+     * @param $vars
+     * @throws BindingResolutionException
+     * @copyright 2020 Lavakit Group
      */
     protected function setLaravelConfiguration($vars)
     {
@@ -186,11 +199,12 @@ class ConfigureDatabase implements SetupScript
         app(DatabaseManager::class)->purge($driver);
         app(ConnectionFactory::class)->make($this->config['database.connections.' . $driver], $driver);
     }
-    
+
     /**
      * Is the database connection valid?
      *
      * @return bool
+     * @copyright 2020 Lavakit Group
      */
     protected function databaseConnectionIsValid()
     {
@@ -198,7 +212,7 @@ class ConfigureDatabase implements SetupScript
             app('db')->reconnect()->getPdo();
             
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             return false;
         }
     }

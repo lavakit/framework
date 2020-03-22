@@ -8,9 +8,10 @@ use Lavakit\Base\Contracts\Console\SetupScript;
 
 /**
  * Class ProtectInstaller
+ *
  * @package Lavakit\Base\Console\Installer\Scripts
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class ProtectInstaller implements SetupScript
 {
@@ -37,7 +38,8 @@ class ProtectInstaller implements SetupScript
     {
         if ($this->finder->isFile('.env') && !$command->option('force')) {
             throw new \Exception(
-                'Lavakit has already been installed. You can already log into your administration. Run \'php artisan lavakit:install -f\' to force replace the .env file.'
+                'Lavakit has already been installed. You can already log into your administration. 
+                                            Run \'php artisan lavakit:install -f\' to force replace the .env file.'
             );
         }
     }
