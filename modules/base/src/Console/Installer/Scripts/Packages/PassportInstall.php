@@ -7,9 +7,10 @@ use Lavakit\Base\Contracts\Console\SetupScript;
 
 /**
  * Class PassportInstall
+ *
  * @package Lavakit\Base\Console\Installer\Scripts\Packages
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class PassportInstall implements SetupScript
 {

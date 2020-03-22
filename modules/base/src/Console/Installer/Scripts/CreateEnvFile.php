@@ -3,14 +3,16 @@
 namespace Lavakit\Base\Console\Installer\Scripts;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Lavakit\Base\Console\Installer\Scripts\Writers\EnvFile;
 use Lavakit\Base\Contracts\Console\SetupScript;
 
 /**
  * Class CreateEnvFile
+ *
  * @package Lavakit\Base\Console\Installer\Scripts
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class CreateEnvFile implements SetupScript
 {
@@ -35,7 +37,7 @@ class CreateEnvFile implements SetupScript
      *
      * @param Command $command
      * @return mixed|void
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      * @copyright 2019 LUCY VN
      * @author Pencii Team <hoatq@lucy.ne.jp>
      */

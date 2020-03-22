@@ -9,9 +9,10 @@ use Lavakit\Base\Console\Composer;
 
 /**
  * Class Installer
+ *
  * @package Lavakit\Base\Console\Installer
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class Installer
 {

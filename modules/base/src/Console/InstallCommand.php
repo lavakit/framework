@@ -18,9 +18,10 @@ use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class InstallCommand
+ *
  * @package Lavakit\Base\Console
- * @copyright 2019 Lavakit Group
- * @author hoatq <tqhoa8th@gmail.com>
+ * @copyright 2020 Lavakit Group
+ * @author tqhoa <tqhoa8th@gmail.com>
  */
 class InstallCommand extends Command
 {
